@@ -1,0 +1,65 @@
+{% extends "default.html" %}
+
+{% block body %}
+<h1>{{ the_title }}</h1>
+<div class="row">
+    <div class="span5">
+        <h2>Listes :</h2>
+        <ul>
+            {% for list in lists %}
+                <li>
+                    {% load tags %}
+                    <i class="icon-shopping-cart"></i>
+                    <span class="badge {% countbadgetype list %}">{% itemsless list %}</span><b><a href='/showlist/{{list.id}}'> {{list}}</a></b>
+                </li>
+            {% endfor %}
+            <li>
+                {% load tags %}
+                <i class="icon-th-list"></i>
+                <b><a href='showlist/all'> Full Liste{{list}}</a></b>
+            </li>
+        </ul>
+    </div>
+    <div class="span5">
+        <h2>Recettes :</h2>
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+
+                    {% load tags %}
+                    <span class="badge {% countbadgetype recipe %}">{% itemsless recipe %}</span><b><a href='/showrecipe/{{recipe.id}}'> {{recipe}}</a></b>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+#class ShopList(models.Model):
+#    name = models.CharField(max_length=200)
+#    idems = models.ManyToManyField('Item')
+#
+#    def __unicode__(self):
+#        return '%s' % (self.name)
+#
+#class Item(models.Model):
+#    name = models.CharField(max_length=200)
+#    desc = models.CharField(max_length=200,default='',blank=True)
+#    outOfStock = models.BooleanField()
+#    cathegory = models.ForeignKey('Category')
+#
+#    def __unicode__(self):
+#        return '%s' % (self.name)
+#
+#class Category(models.Model):
+#    name = models.CharField(max_length=200)
+#    desc = models.CharField(max_length=200,default='',blank=True)
+#
+#    def __unicode__(self):
+#        return '%s' % (self.name)
+#
+#class Recipe(models.Model):
+#    name = models.CharField(max_length=200)
+#    desc = models.CharField(max_length=200,default='',blank=True)
+#    idems = models.ManyToManyField('Item')

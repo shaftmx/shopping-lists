@@ -1,0 +1,65 @@
+{% extends "default.html" %}
+
+{% block body %}
+<h1>{{ the_title }}</h1>
+        <i class="icon-th-list"></i>
+        <i class="icon-ok"></i>
+        <i class="icon-remove"></i>
+        <i class="icon-file"></i>
+        <i class="icon-list-alt"></i>
+        <i class="icon-refresh"></i>
+        <i class="icon-tag"></i>
+        <i class="icon-check"></i>
+        <i class="icon-chevron-right"></i>
+        <i class="icon-chevron-left"></i>
+        <i class="icon-ok-sign"></i>
+        <i class="icon-minus-sign"></i>
+        <i class="icon-plus-sign"></i>
+        <i class="icon-ban-circle"></i>
+        <i class="icon-share-alt"></i>
+        <i class="icon-plus"></i>
+        <i class="icon-minus"></i>
+        <i class="icon-leaf"></i>
+        <i class="icon-comment"></i>
+        <i class="icon-shopping-cart"></i>
+        <span class="badge badge-success">2</span>
+        <span class="badge badge-important">6</span>
+        <span class="badge">1</span>
+        <span class="badge badge-inverse">10</span>
+        <span class="badge badge-info">8</span>
+        <span class="label label-info">Info</span>
+        <span class="label label-success">Success</span>
+        <span class="label label-warning">Warning</span>
+        <i class=""></i>
+
+
+{% endblock %}
+
+
+#class ShopList(models.Model):
+#    name = models.CharField(max_length=200)
+#    idems = models.ManyToManyField('Item')
+#
+#    def __unicode__(self):
+#        return '%s' % (self.name)
+#
+#class Item(models.Model):
+#    name = models.CharField(max_length=200)
+#    desc = models.CharField(max_length=200,default='',blank=True)
+#    outOfStock = models.BooleanField()
+#    cathegory = models.ForeignKey('Category')
+#
+#    def __unicode__(self):
+#        return '%s' % (self.name)
+#
+#class Category(models.Model):
+#    name = models.CharField(max_length=200)
+#    desc = models.CharField(max_length=200,default='',blank=True)
+#
+#    def __unicode__(self):
+#        return '%s' % (self.name)
+#
+#class Recipe(models.Model):
+#    name = models.CharField(max_length=200)
+#    desc = models.CharField(max_length=200,default='',blank=True)
+#    idems = models.ManyToManyField('Item')
