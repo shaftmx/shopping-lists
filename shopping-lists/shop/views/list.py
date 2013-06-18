@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 from shop.models import *
 
-def showlist(request,listID):
+def showlist(request, listID, clean=None):
     if listID == "all":
         myitems = Item.objects.all().order_by('cathegory','name')
         mylist = "Full list"
@@ -14,13 +14,18 @@ def showlist(request,listID):
 
     items={}
     for item in myitems:
+        if not item.outOfStock and clean is not None:
+            continue
         if not item.cathegory in items:
             items[item.cathegory]=[]
         items[item.cathegory].append(item)
 
     #request.path
     the_title = "Liste : %s" % mylist;
-    t = loader.get_template('listshow.html')
+    if clean is None:
+        t = loader.get_template('listshow.html')
+    else:
+        t = loader.get_template('listshowclean.html')
     c = Context({
         'the_title': the_title,
         'items': items,

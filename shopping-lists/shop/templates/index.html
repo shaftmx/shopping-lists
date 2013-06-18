@@ -9,7 +9,7 @@
             {% for list in lists %}
                 <li>
                     {% load tags %}
-                    <i class="icon-shopping-cart"></i>
+                    <a href="/showlist/{{list.id}}/clean"><i class="icon-shopping-cart"></i></a>
                     <span class="badge {% countbadgetype list %}">{% itemsless list %}</span><b><a href='/showlist/{{list.id}}'> {{list}}</a></b>
                 </li>
             {% endfor %}

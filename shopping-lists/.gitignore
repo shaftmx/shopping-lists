@@ -1,4 +1,5 @@
 *.pyc
+dev.py
 /*/settings/local.py
 /*/settings/secret.py
 /dev.db

@@ -19,6 +19,9 @@ class ShopList(models.Model):
     def __unicode__(self):
         return '%s' % (self.name)
 
+    class Meta:
+        ordering = ['name']
+
 class Item(models.Model):
     name = models.CharField(max_length=200)
     desc = models.CharField(max_length=200,default='',blank=True)
@@ -28,12 +31,18 @@ class Item(models.Model):
     def __unicode__(self):
         return '%s' % (self.name)
 
+    class Meta:
+        ordering = ['name', 'cathegory']
+
 class Category(models.Model):
     name = models.CharField(max_length=200)
     desc = models.CharField(max_length=200,default='',blank=True)
 
     def __unicode__(self):
         return '%s' % (self.name)
+
+    class Meta:
+        ordering = ['name']
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
@@ -42,5 +51,8 @@ class Recipe(models.Model):
 
     def __unicode__(self):
         return '%s' % (self.name)
+
+    class Meta:
+        ordering = ['name']
 
 #  `liste_user_id` int(11) NOT NULL,
