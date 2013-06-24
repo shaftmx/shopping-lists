@@ -10,7 +10,7 @@ def ABS_PATH(*args):
     return os.path.join(ROOT_DIR, *args)
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Gael Lambert', 'contact@gael-lambert.org'),
 )
 
 MANAGERS = ADMINS

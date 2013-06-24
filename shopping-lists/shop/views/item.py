@@ -1,11 +1,13 @@
 # Create your views here.
 from django.template import Context, loader
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from shop.models import *
 
 def changeitemstock(request,itemID):
-    myItem = Item.objects.get(id=itemID)
+    #myItem = Item.objects.get(id=itemID)
+    myItem = get_object_or_404(Item, id=itemID)
 
     myItem.outOfStock = not myItem.outOfStock
     myItem.save()
@@ -25,30 +27,3 @@ def changeitemstock(request,itemID):
     return HttpResponse(t.render(c))
 
 
-#class ShopList(models.Model):
-#    name = models.CharField(max_length=200)
-#    idems = models.ManyToManyField('Item')
-#
-#    def __unicode__(self):
-#        return '%s' % (self.name)
-#
-#class Item(models.Model):
-#    name = models.CharField(max_length=200)
-#    desc = models.CharField(max_length=200,default='',blank=True)
-#    outOfStock = models.BooleanField()
-#    cathegory = models.ForeignKey('Category')
-#
-#    def __unicode__(self):
-#        return '%s' % (self.name)
-#
-#class Category(models.Model):
-#    name = models.CharField(max_length=200)
-#    desc = models.CharField(max_length=200,default='',blank=True)
-#
-#    def __unicode__(self):
-#        return '%s' % (self.name)
-#
-#class Recipe(models.Model):
-#    name = models.CharField(max_length=200)
-#    desc = models.CharField(max_length=200,default='',blank=True)
-#    idems = models.ManyToManyField('Item')
