@@ -17,7 +17,12 @@ def active(request, pattern):
 @register.simple_tag
 def itemsless(myobject):
     count = 0
-    for item in myobject.items.all():
+    try:
+        items = myobject.items.all()
+    except:
+        # Full list, only items
+        items = myobject
+    for item in items:
         if item.outOfStock:
             count += 1
     return count
@@ -26,7 +31,12 @@ def itemsless(myobject):
 def countbadgetype(myobject):
     count = 0
     total = 0
-    for item in myobject.items.all():
+    try:
+        items = myobject.items.all()
+    except:
+        # Full list, only items
+        items = myobject
+    for item in items:
         if item.outOfStock:
             count += 1
         total +=1

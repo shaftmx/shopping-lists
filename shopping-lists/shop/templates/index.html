@@ -16,7 +16,7 @@
             <li>
                 {% load tags %}
                 <a href="{% url 'showlist' 'all' 'clean' %}"><i class="icon-th-list"></i></a>
-                <b><a href='{% url 'showlist' 'all' %}'> Full Liste{{list}}</a></b>
+                <span class="badge {% countbadgetype full_list %}">{% itemsless full_list %}</span><b><a href='{% url 'showlist' 'all' %}'> Full Liste{{list}}</a></b>
             </li>
         </ul>
     </div>
