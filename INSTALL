@@ -1,0 +1,45 @@
+Quick / (a little dirty) Install notes
+
+git clone https://github.com/shaftmx/shopping-lists & cd shopping-lists/shopping-lists
+apt-get install python-virtualenv python-dev git
+
+virtualenv --no-site-packages shopping-lists-env
+source shopping-lists-env/bin/activate
+
+pip install -r shopping-lists/requirements.txt
+
+vim project/settings/local.py
+# remove toolbar and set DEBUG to false
+# Faire la config de la db
+
+./shopping-lists/manage.py syncdb
+
+a2enmod proxy
+a2enmod proxy_http
+
+Exemple de vhost apache
+ProxyRequests On
+ProxyVia On
+  <Location />
+      Allow From All
+      ProxyPass http://localhost:8088/
+      ProxyPassReverse http://localhost:8088/
+  </Location>
+
+Exemple de conf supervisor
+[program:shoplist]
+stopsignal=KILL
+#stopsignal=HUP
+killasgroup=true
+stopasgroup=true
+stopwaitsecs=10
+autostart=true
+autorestart=true
+numprocs=1
+directory = /var/www/shop.fr/
+startsecs=10
+startretries=3
+user = 33
+command = /var/www/shop.fr/shopping-lists-env/bin/python /var/www/shop.fr/shopping-lists/shopping-lists/manage.py runserver 127.0.0.1:8000 --noreload
+stdout_logfile = /var/log/supervisor_shop.fr.log
+stderr_logfile = /var/log/supervisor_shop.fr.log
