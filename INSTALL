@@ -1,6 +1,6 @@
 Quick / (a little dirty) Install notes
 
-git clone https://github.com/shaftmx/shopping-lists & cd shopping-lists/shopping-lists
+git clone https://github.com/shaftmx/shopping-lists
 apt-get install python-virtualenv python-dev git libmysql-clientdev
 
 virtualenv --no-site-packages shopping-lists-env
