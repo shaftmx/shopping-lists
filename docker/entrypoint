@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+[ -z $DB_NAME ] && export DB_NAME=shopping
+[ -z $DB_HOST ] && export DB_HOST=localhost
+[ -z $DB_USER ] && export DB_USER=shopping
+[ -z $DB_PASSWORD ] && export DB_PASSWORD=secret
+[ -z $GROUP ] && export GROUP=33
+[ -z $USER ] && export USER=33
+[ -z $NUM_WORKERS ] && export NUM_WORKERS=3
+
+#./shopping-lists/manage.py syncdb
+envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > /shopping-lists/project/settings/local.py
+
+cd shopping-lists
+exec python manage.py run_gunicorn

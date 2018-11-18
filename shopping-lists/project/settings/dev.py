@@ -2,12 +2,22 @@ from .base import *
 
 DEBUG = TEMPLATE_DEBUG = True
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': 'dev.db',
+#    }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dev.db',
+        'NAME': '$DB_NAME',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '$DB_HOST',
+        'USER': '$DB_USER',
+        'PASSWORD': '$DB_PASSWORD',
     }
 }
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
