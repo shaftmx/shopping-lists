@@ -1,5 +1,6 @@
 FROM python:2
 
+RUN apt-get update && apt-get install -y gettext-base && apt-get clean
 COPY ./requirements.txt /
 RUN pip install -r /requirements.txt
 
