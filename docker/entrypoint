@@ -14,4 +14,4 @@ set -e
 envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > /shopping-lists/project/settings/local.py
 
 cd shopping-lists
-exec python manage.py run_gunicorn
+exec python manage.py run_gunicorn $@
