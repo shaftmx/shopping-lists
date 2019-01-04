@@ -10,4 +10,4 @@ django-paging==0.2.5
 django-sentry==1.13.5
 django-templatetag-sugar==0.1
 gunicorn==0.17.4
-Django==1.5.1
+Django==1.5.5

@@ -1,0 +1,22 @@
+upstream backend {
+    server 127.0.0.1:5000;
+}
+server {
+    listen ${NGINX_DEFAULT_PORT} default_server;
+
+    root /shopping-lists/shop/;
+
+    location / { 
+        proxy_pass_request_headers on;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_pass  http://backend;
+        proxy_redirect     default;
+    }   
+    location '/static' {
+        try_files $uri $uri/index.html $uri.html;
+    }
+    location '/static/admin' {
+        root /usr/local/lib/python2.7/site-packages/django/contrib/admin;
+        try_files $uri $uri/index.html $uri.html;
+    }
+}

@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = TEMPLATE_DEBUG = True
+DEBUG = TEMPLATE_DEBUG = False
 
 #DATABASES = {
 #    'default': {
@@ -18,6 +18,7 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -36,20 +37,20 @@ LOGGING['loggers']['django.db'] = {
 }
 
 # set up Django Debug Toolbar if installed
-try:
-    import debug_toolbar  # noqa
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-        'SHOW_TOOLBAR_CALLBACK': lambda *args, **kwargs: True
-    }
-except ImportError:
-    pass
+#try:
+#    import debug_toolbar  # noqa
+#    MIDDLEWARE_CLASSES += (
+#        'debug_toolbar.middleware.DebugToolbarMiddleware',
+#    )
+#    INSTALLED_APPS += (
+#        'debug_toolbar',
+#    )
+#    DEBUG_TOOLBAR_CONFIG = {
+#        'INTERCEPT_REDIRECTS': False,
+#        'SHOW_TOOLBAR_CALLBACK': lambda *args, **kwargs: True
+#    }
+#except ImportError:
+#    pass
 
 
 # Set up django-extensions if installed

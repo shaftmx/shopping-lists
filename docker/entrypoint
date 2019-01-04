@@ -3,15 +3,32 @@
 set -e
 
 [ -z $DB_NAME ] && export DB_NAME=shopping
-[ -z $DB_HOST ] && export DB_HOST=localhost
+[ -z $DB_HOST ] && export DB_HOST=127.0.0.1
 [ -z $DB_USER ] && export DB_USER=shopping
 [ -z $DB_PASSWORD ] && export DB_PASSWORD=secret
 [ -z $GROUP ] && export GROUP=33
 [ -z $USER ] && export USER=33
 [ -z $NUM_WORKERS ] && export NUM_WORKERS=3
 
+[ -z $NGINX_WORKER_PROCESSES ] && export NGINX_WORKER_PROCESSES=auto
+[ -z $NGINX_WORKER_CONNECTIONS ] && export NGINX_WORKER_CONNECTIONS=1024
+[ -z $NGINX_KEEPALIVE_TIMEOUT ] && export NGINX_KEEPALIVE_TIMEOUT=1
+[ -z $NGINX_DEFAULT_PORT ] && export NGINX_DEFAULT_PORT=80
+[ -z $NGINX_APP_NAME ] && export NGINX_APP_NAME=pastefile
+[ -z $MAX_FILE_SIZE ] && export MAX_FILE_SIZE=1G
+
+envsubst '$NGINX_WORKER_PROCESSES $NGINX_WORKER_CONNECTIONS $NGINX_KEEPALIVE_TIMEOUT' < /opt/nginx.conf.template > /etc/nginx/nginx.conf
+envsubst '$NGINX_DEFAULT_PORT' < /opt/vhost.conf.template > /etc/nginx/conf.d/shopping.conf
+
 #./shopping-lists/manage.py syncdb
 envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > /shopping-lists/project/settings/local.py
 
-cd shopping-lists
-exec python manage.py run_gunicorn $@
+set -x
+if [ ! "$1" ]; then
+    echo "Starting Nginx and shopping list"
+    nginx
+    #shopping-lists/manage.py run_gunicorn 127.0.0.1:5000 2>&1
+    exec /usr/local/bin/python shopping-lists/manage.py run_gunicorn 127.0.0.1:5000
+fi
+
+exec "$@"
