@@ -1,0 +1,34 @@
+{% extends "default.html" %}
+
+{% block body %}
+<h1>{{ the_title }}</h1>
+<h2>Ingrédients</h2>
+<div class="row">
+    <div class="span5">
+        <ul>
+        {% for category,items in items.items %}
+            {% for item in items %}
+                <li>
+                {% if item.outOfStock %}
+                    <i class="icon-remove"></i> <strike class="text-danger">{{item}}</strike>
+                {% else %}
+                    <i class="icon-remove icon-white"></i> {{item}}
+                {% endif %}
+                </li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="span5">
+    </div>
+</div>
+
+{% if description_html != "" %}
+<h1>Description</h1>
+{{ description_html|safe}}
+{% endif %}
+
+
+{% include "changeitemstock.js" %}
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "default.html" %}
+{% block body %}
+<h1>{{ the_title }}</h1>
+
+<div class="row">
+  <div class="col">
+
+  </div>
+  <div class="col">
+
+  </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h2>Listes :</h2>
+        <ul>
+
+
+
+
+            {% for list in lists %}
+                <li>
+                    {% load tags %}
+                    <a href="{% url 'showlist' list.id 'clean' %}"><img src="/static/bootstrap/icons/cart.svg" alt="" width="22" height="22" title="Clean mode"></i></a>
+                    <span class="badge badge-pill {% countbadgetype list %}">{% itemsless list %}</span><b><a href='{% url 'showlist' list.id %}'> {{list}}</a></b>
+                </li>
+            {% endfor %}
+            <li>
+                {% load tags %}
+                <a href="{% url 'showlist' 'all' 'clean' %}"><img src="/static/bootstrap/icons/card-list.svg" alt="" width="22" height="22" title="Clean mode"></i></a>
+                <span class="badge badge-pill {% countbadgetype full_list %}">{% itemsless full_list %}</span><b><a href='{% url 'showlist' 'all' %}'> Full Liste{{list}}</a></b>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <h2>Recettes :</h2>
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+
+                    {% load tags %}
+                    <span class="badge badge-pill {% countbadgetype recipe %}">{% itemsless recipe %}</span><b><a href='{% url 'showrecipe' recipe.id %}'> {{recipe}}</a></b>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

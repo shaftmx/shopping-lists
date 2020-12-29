@@ -4,7 +4,7 @@ upstream backend {
 server {
     listen ${NGINX_DEFAULT_PORT} default_server;
 
-    root /shopping-lists/shop/;
+    root /shoppingList/shop/;
 
     location / { 
         proxy_pass_request_headers on;
@@ -16,7 +16,7 @@ server {
         try_files $uri $uri/index.html $uri.html;
     }
     location '/static/admin' {
-        root /usr/local/lib/python2.7/site-packages/django/contrib/admin;
+        root ${DJANGO_ADMIN_PATH};
         try_files $uri $uri/index.html $uri.html;
     }
 }

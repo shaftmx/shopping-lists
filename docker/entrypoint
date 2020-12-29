@@ -17,18 +17,23 @@ set -e
 [ -z $NGINX_APP_NAME ] && export NGINX_APP_NAME=pastefile
 [ -z $MAX_FILE_SIZE ] && export MAX_FILE_SIZE=1G
 
+export DJANGO_ADMIN_PATH=$(python -c "from django.contrib import admin; print(admin.__path__[0])")
+
 envsubst '$NGINX_WORKER_PROCESSES $NGINX_WORKER_CONNECTIONS $NGINX_KEEPALIVE_TIMEOUT' < /opt/nginx.conf.template > /etc/nginx/nginx.conf
-envsubst '$NGINX_DEFAULT_PORT' < /opt/vhost.conf.template > /etc/nginx/conf.d/shopping.conf
+
+envsubst '$NGINX_DEFAULT_PORT $DJANGO_ADMIN_PATH' < /opt/vhost.conf.template > /etc/nginx/conf.d/shopping.conf
 
 #./shopping-lists/manage.py syncdb
-envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > /shopping-lists/project/settings/local.py
+envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > ./shoppingList/shoppingList/settings.py
 
 set -x
 if [ ! "$1" ]; then
     echo "Starting Nginx and shopping list"
     nginx
-    #shopping-lists/manage.py run_gunicorn 127.0.0.1:5000 2>&1
-    exec /usr/local/bin/python shopping-lists/manage.py run_gunicorn 127.0.0.1:5000
+    python shoppingList/manage.py migrate
+    exec python shoppingList/manage.py runserver 0.0.0.0:5000
 fi
 
+# To init your db run this docker image with
+# python shoppingList/manage.py migrate
 exec "$@"
