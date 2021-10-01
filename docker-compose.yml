@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: mysql:5
+    image: mysql:8
     #volumes: 
     # Make the database persistent
     #  #- "/tmp/db:/var/lib/mysql"

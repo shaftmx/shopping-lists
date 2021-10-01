@@ -19,10 +19,20 @@ def index(request):
     recipes = Recipe.objects.all().order_by('name')
 
     the_title = "Index";
+    recipes_by_cat = {"autre": []}
+    for recipe in recipes:
+        if recipe.category is None:
+            recipes_by_cat["autre"].append(recipe)
+            continue
+
+        if recipe.category not in recipes_by_cat.keys():
+            recipes_by_cat[recipe.category] = []
+        recipes_by_cat[recipe.category].append(recipe)
 
     context = {
         'the_title': the_title,
         'recipes': recipes,
+        'recipes_by_cat': recipes_by_cat,
         'lists': lists,
         'full_list': full_list,
         'request': request,

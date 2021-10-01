@@ -32,17 +32,25 @@ class Category(models.Model):
     class Meta:
         ordering = ['name']
 
+class RecipeCategory(models.Model):
+    name = models.CharField(max_length=200)
+    desc = models.CharField(max_length=200, default='', blank=True)
+    def __str__(self):
+        return '%s' % (self.name)
+    class Meta:
+        ordering = ['name']
+
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
     desc = models.TextField(default='', blank=True)
     items = models.ManyToManyField('Item')
+    category = models.ForeignKey('RecipeCategory', on_delete=models.RESTRICT, null=True)
     def __str__(self):
         return '%s' % (self.name)
     def html_desc(self):
         return markdown.markdown(self.desc)
     class Meta:
         ordering = ['name']
-
 
 # # Legacy (keeping for migration generation)
 # class ShopList(models.Model):

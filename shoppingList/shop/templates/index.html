@@ -15,10 +15,6 @@
     <div class="col">
         <h2>Listes :</h2>
         <ul>
-
-
-
-
             {% for list in lists %}
                 <li>
                     {% load tags %}
@@ -36,12 +32,14 @@
     <div class="col">
         <h2>Recettes :</h2>
         <ul>
-            {% for recipe in recipes %}
-                <li>
-
-                    {% load tags %}
-                    <span class="badge badge-pill {% countbadgetype recipe %}">{% itemsless recipe %}</span><b><a href='{% url 'showrecipe' recipe.id %}'> {{recipe}}</a></b>
-                </li>
+            {% for cat_name, cat_recipes in recipes_by_cat.items %}
+            <br><h3>{{cat_name}}</h3>
+              {% for recipe in cat_recipes %}
+                  <li>
+                      {% load tags %}
+                      <span class="badge badge-pill {% countbadgetype recipe %}">{% itemsless recipe %}</span><b><a href='{% url 'showrecipe' recipe.id %}'> {{recipe}}</a></b>
+                  </li>
+              {% endfor %}
             {% endfor %}
         </ul>
     </div>
