@@ -9,11 +9,17 @@
         {% for category,items in items.items %}
             {% for item in items %}
                 <li>
-                {% if item.outOfStock %}
-                    <i class="icon-remove"></i> <strike class="text-danger">{{item}}</strike>
-                {% else %}
-                    <i class="icon-remove icon-white"></i> {{item}}
-                {% endif %}
+                    <label class="checkbox">
+                      <div id="ref{{item.id}}" class="spinner-border spinner-border-sm text-secondary" role="status" style="display: none">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                        {% if item.outOfStock %}
+                            <input id="{{item.id}}" onClick="checkitem({{ item.id }});" type="checkbox" value="">
+                        {% else %}
+                            <input id="{{item.id}}" onClick="checkitem({{ item.id }});" type="checkbox" value="" checked>
+                        {% endif %}
+                        <span id="txt{{item.id}}" class="text-body">{{item}}</span>
+                    </label>
                 </li>
             {% endfor %}
         {% endfor %}
