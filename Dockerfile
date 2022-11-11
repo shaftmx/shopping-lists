@@ -9,7 +9,9 @@ COPY ./docker/config/nginx.conf.template /opt/
 COPY ./docker/config/vhost.conf.template /opt/
 
 COPY ./extra/legacy_migration.py /
-COPY ./shoppingList/shoppingList/settings.py /local.py.template
+# Not used anymore, settings.py now directly use env vars
+# Keep in case we want to use this templating later
+#COPY ./shoppingList/shoppingList/settings.py /local.py.template
 COPY ./shoppingList /shoppingList
 COPY ./docker/entrypoint /entrypoint
 

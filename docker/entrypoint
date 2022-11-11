@@ -24,7 +24,7 @@ envsubst '$NGINX_WORKER_PROCESSES $NGINX_WORKER_CONNECTIONS $NGINX_KEEPALIVE_TIM
 envsubst '$NGINX_DEFAULT_PORT $DJANGO_ADMIN_PATH' < /opt/vhost.conf.template > /etc/nginx/conf.d/shopping.conf
 
 #./shopping-lists/manage.py syncdb
-envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > ./shoppingList/shoppingList/settings.py
+#envsubst '$DB_NAME $DB_HOST $DB_USER $DB_PASSWORD' < /local.py.template > ./shoppingList/shoppingList/settings.py
 
 set -x
 if [ ! "$1" ]; then

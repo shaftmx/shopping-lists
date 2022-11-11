@@ -93,6 +93,18 @@ Then is should be working. You can now test it live then if everything is ok run
 Run local env
 
 ```bash
+export DB_NAME=netwiki_shop
+export DB_HOST=127.0.0.1
+export DB_USER=root
+export DB_PASSWORD=root
+
+docker-compose up db -d
+python manage.py runserver
+```
+
+Run locally dockers
+
+```bash
 docker-compose up --build
 ```
 
