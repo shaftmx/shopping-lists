@@ -98,14 +98,17 @@ export DB_HOST=127.0.0.1
 export DB_USER=root
 export DB_PASSWORD=root
 
-docker-compose up db -d
+docker compose up db -d
 python manage.py runserver
 ```
 
-Run locally dockers
+Or Run locally dockers
 
 ```bash
-docker-compose up --build
+docker compose up --build
+
+# In case of issue run manually the container
+docker run -it shaftmx/shopping-lists bash
 ```
 
 Run local db shell
@@ -118,4 +121,16 @@ Creating/running db migration
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+```
+
+
+# Upgrade code
+
+```
+pip install --upgrade pip
+pip install --upgrade Django
+pip install --upgrade Markdown
+pip install --upgrade mysqlclient
+pip freeze | grep -E '(Django|Markdown|mysqlclient)'
+vim requirements.txt
 ```

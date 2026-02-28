@@ -1,12 +1,11 @@
-version: '3'
 services:
   db:
     image: mysql:8
-    #volumes: 
+    volumes: 
     # Make the database persistent
     #  #- "/tmp/db:/var/lib/mysql"
     # Init the db from a sample sql file
-    #  - "./db-init:/docker-entrypoint-initdb.d"
+      - "./db-init:/docker-entrypoint-initdb.d"
     ports: ["3306:3306"]
     environment:
       MYSQL_DATABASE: netwiki_shop
