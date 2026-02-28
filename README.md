@@ -113,7 +113,7 @@ docker run -it shaftmx/shopping-lists bash
 
 Run local db shell
 ```bash
-sudo docker exec -it shopping-lists_web_1 python shoppingList/manage.py dbshell
+sudo docker exec -it shopping-lists-web-1 python shoppingList/manage.py dbshell
 ```
 
 Creating/running db migration

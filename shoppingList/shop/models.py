@@ -45,10 +45,21 @@ class Recipe(models.Model):
     desc = models.TextField(default='', blank=True)
     items = models.ManyToManyField('Item')
     category = models.ForeignKey('RecipeCategory', on_delete=models.RESTRICT, null=True)
+    photo = models.BinaryField(blank=True, null=True, verbose_name="Photo")
+    photo_content_type = models.CharField(max_length=50, blank=True, null=True, verbose_name="Type photo")
+
     def __str__(self):
         return '%s' % (self.name)
     def html_desc(self):
         return markdown.markdown(self.desc)
+    def get_photo_url_data(self):
+        """Retourne la data URL base64 pour afficher l'image inline (dans l'admin)."""
+        if self.photo:
+            import base64
+            data = base64.b64encode(bytes(self.photo)).decode('utf-8')
+            ct = self.photo_content_type or 'image/jpeg'
+            return f"data:{ct};base64,{data}"
+        return None
     class Meta:
         ordering = ['name']
 

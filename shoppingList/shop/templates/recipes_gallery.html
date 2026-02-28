@@ -1,0 +1,133 @@
+{% extends "default.html" %}
+
+{% block body %}
+<h1 class="page-title">Recettes</h1>
+
+{% for category_name, items in categories.items %}
+<section class="category-section">
+  <h2 class="category-title">{{ category_name }}</h2>
+  <div class="recipe-grid">
+    {% for item in items %}
+    <a href="{% url 'showrecipe' item.recipe.id %}" class="recipe-card">
+      <div class="recipe-img-wrapper">
+        {% if item.has_photo %}
+          <img src="{% url 'recipe_photo' item.recipe.id %}"
+               alt="{{ item.recipe.name }}"
+               class="recipe-img"
+               loading="lazy">
+        {% else %}
+          <div class="recipe-img recipe-img-placeholder">🍽</div>
+        {% endif %}
+
+        {% load tags %}
+        <span class="badge badge-pill {% countbadgetype item.recipe %} badge-overlay">
+          {% itemsless item.recipe %}
+        </span>
+      </div>
+      <div class="recipe-card-footer">
+        <span class="recipe-card-name">{{ item.recipe.name }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% empty %}
+<p class="text-muted">Aucune recette trouvée.</p>
+{% endfor %}
+
+<style>
+.page-title {
+  margin-bottom: 30px;
+}
+
+.category-section {
+  margin-bottom: 40px;
+}
+
+.category-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #555;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  background: #fff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+.recipe-img-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.recipe-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  color: #ccc;
+  background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+}
+
+.badge-overlay {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 0.75em;
+}
+
+.recipe-card-footer {
+  padding: 8px 10px;
+}
+
+.recipe-card-name {
+  font-size: 0.82em;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+  .recipe-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+  }
+}
+</style>
+
+{% endblock %}

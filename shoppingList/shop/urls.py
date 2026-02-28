@@ -20,6 +20,8 @@ urlpatterns = [
     
         re_path(r'^showlist/(?P<listID>([0-9]+|all))/(?P<clean>[a-z]+)?', views.showlist, name='showlist'),
         path('showrecipe/<int:recipeID>', views.showrecipe, name='showrecipe'),
+        path('recipes/', views.recipes_gallery, name='recipes_gallery'),
+        path('recipe-photo/<int:recipe_id>/', views.recipe_photo, name='recipe_photo'),
         path('changeitemstock/<int:itemID>', views.changeitemstock, name='changeitemstock'),
         # re_path(r'^showrecipe/(?P<recipeID>([0-9]+))', views.showrecipe, name='showrecipe'),
         # re_path(r'^changeitemstock/(?P<itemID>[0-9]+)', views.changeitemstock, name='changeitemstock'),
